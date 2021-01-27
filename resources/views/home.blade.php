@@ -1,7 +1,6 @@
 @extends('layouts.default')
-
 @section('content')
-<main role="main">
+
 
 <!-- Aqui começa o banner carrocel -->
 
@@ -86,11 +85,11 @@
 	     
 	            
 	        var row = "<div class=\"col-md-3 themed-grid-col text-center\">"
-					    + "<a href=\"details.jsp?id=" + value.produto.id + "\">"
+					    + "<a href=\"{{ url('details') }}/" + value.idloja + "\">"
 						+	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"figura produto\" width=301px height=auto/></a>"
 					    + "<div>"
 					
-						+	"<h4 class=\"nav-link\"><a href=\"details.jsp?id=" + value.ID + "\">" + value.produto.descricao + "</a></h4>"
+						+	"<h4 class=\"nav-link\"><a href=\"{{ url('details') }}/" + value.idloja + "\">" + value.produto.descricao + "</a></h4>"
 					
 						+	"<h3>R$ " +  value.preco +  "</h3>"
 						+ "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.produto.id + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
@@ -105,5 +104,5 @@
 	</script>
   
   
-</main>
+
 @endsection

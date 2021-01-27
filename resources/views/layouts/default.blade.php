@@ -103,9 +103,10 @@
 <!-- Menu termina aqui -->
 
 </header>
-
-@yield('content')
-
+<body>
+    <main role="main">
+   		 @yield('content')
+    </main>
 </body>
 
 <footer class="container py-5">
