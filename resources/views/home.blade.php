@@ -87,7 +87,7 @@
 	            
 	        var row = "<div class=\"col-md-3 themed-grid-col text-center\">"
 					    + "<a href=\"details.jsp?id=" + value.produto.id + "\">"
-						+	"<img src=\"ImagensServlet?id=" +  value.produto.id + "\" alt=\"figura produto\" width=301px height=auto/></a>"
+						+	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"figura produto\" width=301px height=auto/></a>"
 					    + "<div>"
 					
 						+	"<h4 class=\"nav-link\"><a href=\"details.jsp?id=" + value.ID + "\">" + value.produto.descricao + "</a></h4>"
