@@ -16,4 +16,4 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('details/{id}', 'HomeController@detail')->where('id','[0-9]+');;
+Route::get('details/{id}', 'HomeController@details')->where('id','[0-9]+');;
