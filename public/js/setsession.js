@@ -4,14 +4,21 @@ function setsession(id){
 	
 	
 	
-	fetch("SessionServlet?id=" + id).then(function(response) {
+	fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token') !!}&idloja={{ $id }}").then(function(response) {
 	  var contentType = response.headers.get("content-type");
 	  if(contentType && contentType.indexOf("application/json") !== -1) {
 	    return response.json().then(function(json) {
 	      // process your JSON further
 	      
 	      
-	     	console.log(json);
+	     if(id != 0) {
+				
+				document.cookie = json;
+				//window.location.href = "carrinho.jsp";
+	    	}
+	     	
+	     	
+	     	console.log(document.cookie)
 	    	
 
   			$('#carrinhoqtd').empty();
@@ -20,9 +27,7 @@ function setsession(id){
 			$('#carrinhopreco').empty();
 			$('#carrinhopreco').append("R$ " + json.valor);
 	    	
-			if(id != 0) {
-				window.location.href = "carrinho.jsp";
-	    	}
+			
 	    	 
 	    });
 	  } else {

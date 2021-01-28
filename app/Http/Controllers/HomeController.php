@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -29,6 +29,7 @@ class HomeController extends Controller
     public function details($id)
     {
         
-        return view('details')->with(['id'=>$id]);
+      
+        return view('details')->with(['id'=>$id,  'produto' => Request::input('produto')]);
     }
 }

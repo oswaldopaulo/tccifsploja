@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="pt_BR">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lojinha Ja Guara</title>
 <link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset ('vendor/fontawesome-free-5.13.1-web/css/all.min.css') }}" rel="stylesheet">
@@ -25,7 +27,7 @@
 </head>
 <body>
 <header>
-<!-- Menu começa aqui -->
+<!-- Menu comeï¿½a aqui -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand">Ja Guara</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,42 +118,42 @@
       <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
     </div>
     <div class="col-6 col-md">
-      <h5>Sub Rodapé</h5>
+      <h5>Sub Rodapï¿½</h5>
       <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
       
       </ul>
     </div>
      <div class="col-6 col-md">
-      <h5>Sub Rodapé</h5>
+      <h5>Sub Rodapï¿½</h5>
       <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
       
       </ul>
     </div>
       <div class="col-6 col-md">
-      <h5>Sub Rodapé</h5>
+      <h5>Sub Rodapï¿½</h5>
       <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
       
       </ul>
     </div>
        <div class="col-6 col-md">
-      <h5>Sub Rodapé</h5>
+      <h5>Sub Rodapï¿½</h5>
       <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
-        <li><a class="text-muted" href="#">Link Rodapé </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
+        <li><a class="text-muted" href="#">Link Rodapï¿½ </a></li>
       
       </ul>
     </div>
@@ -162,7 +164,7 @@
        
       <div class="card-body">
         <h6 class="card-title" id="footerEmpresa">Empresa</h6>
-        <p class="card-text"><strong>CNPJ:</strong> <span id="footerCnpj"></span> <strong>Endereõ:</strong> <span id="footerEndereco"></span>, <span id="footerNum"></span> text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text"><strong>CNPJ:</strong> <span id="footerCnpj"></span> <strong>EndereÃ§o:</strong> <span id="footerEndereco"></span>, <span id="footerNum"></span> text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="card-link">Card link</a>
         <a href="#" class="card-link">Another link</a>
       </div>
@@ -173,7 +175,7 @@
 
 <script src="{{ asset ('js/jquery-3.5.1.slim.min.js') }}" type="text/javascript"></script>
 <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-
+<script src="{{ asset ('js/jquery.cookie.js') }}"></script>
 <script type="text/javascript">
 fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.token') !!}" ).then(function(response) {
 	  var contentType = response.headers.get("content-type");
@@ -184,7 +186,7 @@ fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.tok
 	      
 	     
 	    	//p = json.Produtos;
-	    	 console.log(json);
+	    	// console.log(json);
 	    	
 	    	 $("#footerEmpresa").html(json[0].nome);
 	    	 $("#footerCnpj").html(json[0].cpf);
@@ -202,5 +204,92 @@ fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.tok
 	  }
 	});
 	
+</script>
+<script type="text/javascript">
+function setsession(id){
+	
+	
+	  if(id==0) {
+		  //var arr = JSON.parse(getCookie("produtos"));
+	     	//console.log(arr);
+	     	
+	     	//$.removeCookie('produtos')
+	    	 $('#carrinhoqtd').empty();
+			$('#carrinhoqtd').append($.cookie('qtd')?$.cookie('qtd'):"");
+			
+			$('#carrinhopreco').empty();
+			$('#carrinhopreco').append("R$ " + $.cookie('total')?$.cookie('total'):0);
+			 return;
+	  }
+	
+	fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token') !!}&idloja=" + id).then(function(response) {
+	  var contentType = response.headers.get("content-type");
+	  if(contentType && contentType.indexOf("application/json") !== -1) {
+	    return response.json().then(function(json) {
+	      // process your JSON further
+	      
+	      
+	   		
+			var test = false;
+			var total = 0;
+	   		$.cookie.json = true;
+
+	   		
+	   		t = $.cookie('produtos');
+
+
+	   		
+	   		json[0].qtd = 1;
+	   		
+
+	   		if(t == null){
+	   			t=json;
+	   			total += parseFloat(json[0].preco);
+		   		
+	   		}	else{
+
+	   			for (var i = 0; i < t.length; i++){
+	  	   		  // look for the entry with a matching `code` value
+	  	   		 
+	  	   		  total += parseFloat(t[i].preco);
+	  	   		  if (t[i].idloja == id){
+	  	   			t[i].qtd += 1;  
+	  	   		    test=true;
+	  	   		  }
+	   			}
+
+				if(test==false)	{
+					total += parseFloat(json[0].preco);
+					t.push(json[0]);
+				}
+	   		}
+
+	   		$.cookie('produtos', t);
+	   		$.cookie('total', total);
+	   		$.cookie('qtd', t.length);
+
+	   		//console.log($.cookie('produtos'));
+  			$('#carrinhoqtd').empty();
+			$('#carrinhoqtd').append(t.length);
+			
+			$('#carrinhopreco').empty();
+			$('#carrinhopreco').append("R$ " + total);
+
+			//window.location.href = "carrinho.jsp";
+			
+	    });
+	  } else {
+	    console.log("Oops, we haven't got JSON!");
+	  }
+	});
+		
+	
+	}
+
+
+
+setsession(0)
+
+
 </script>
 </html>

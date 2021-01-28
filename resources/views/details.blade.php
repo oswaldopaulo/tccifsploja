@@ -26,13 +26,13 @@
     	<i class="fas fa-star text-warning"></i>
     	<i class="fas fa-star text-warning"></i>
     	<i class="far fa-star"></i>
-    	(6) (CÛd.<span id="id"></span>)
+    	(6) (C√≥d.<span id="id"></span>)
     
     </p>
     <p id="ficha"></p>
     
     <h1 id="preco"></h1>
-    <p> 10x de <span id="cartao"></span> no cart„o ja guara</p>
+    <p> 10x de <span id="cartao"></span> no cart√£o</p>
     
     <button type="button" id="bt-carrinho" class="btn btn-danger btn-lg"> <i class="fas fa-cart-plus fa-fw"></i> Comprar </button>    
     
@@ -47,7 +47,7 @@
   <script type="text/javascript">
   
   
-var idtemp=0;
+
 
 fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token') !!}&idloja={{ $id }}").then(function(response) {
 	  var contentType = response.headers.get("content-type");
@@ -68,6 +68,20 @@ fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token'
 	    	 //$("#capa").src("ImagensServlet?id=" + p[0].ID);
 	    	 document.getElementById("capa").src= "{{ Config::get('api.v1.pics') }}/getbyitem/" + p[0].produto.id;
 	    	 document.getElementById("bt-carrinho").onclick= function() { setsession( p[0].produto.id); }
+
+	    	 fetch("{{ Config::get('api.v1.url') }}/pics?produto=" + p[0].produto.id).then(function(response) {
+	    		
+	    		  var contentType = response.headers.get("content-type");
+	    		  if(contentType && contentType.indexOf("application/json") !== -1) {
+	    		    return response.json().then(function(json) {
+	    		      // process your JSON further
+	    		    	//console.log(json);
+	    		    	orderAddRow(json)
+	    		    });
+	    		  } else {
+	    		    console.log("Oops, we haven't got JSON!");
+	    		  }
+	    		});
 	    	 
 	    });
 	  } else {
@@ -77,19 +91,7 @@ fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token'
 	
 	
 	
-fetch("{{ Config::get('api.v1.url') }}/pics?produto=" + idtemp).then(function(response) {
-	 alert("{{ Config::get('api.v1.url') }}/pics?produto=" + idtemp);
-	  var contentType = response.headers.get("content-type");
-	  if(contentType && contentType.indexOf("application/json") !== -1) {
-	    return response.json().then(function(json) {
-	      // process your JSON further
-	    	console.log(json);
-	    	orderAddRow(json)
-	    });
-	  } else {
-	    console.log("Oops, we haven't got JSON!");
-	  }
-	});
+
 	
 	function orderAddRow($data) {
 	    $.each($data,function(index,value) {

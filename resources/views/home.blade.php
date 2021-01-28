@@ -2,7 +2,7 @@
 @section('content')
 
 
-<!-- Aqui começa o banner carrocel -->
+<!-- Aqui comeï¿½a o banner carrocel -->
 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -50,7 +50,7 @@
   </div>
   <!-- Aqui termina o banner carrocel -->
   
-   <!--  Produtos começa aqui -->
+   <!--  Produtos comeï¿½a aqui -->
    <div class="row mb-4 produto_marging" id="produtos">
    
 		<!-- loop -->   
@@ -70,7 +70,7 @@
 	  if(contentType && contentType.indexOf("application/json") !== -1) {
 	    return response.json().then(function(json) {
 	      // process your JSON further
-	    	console.log(json);
+	    	//console.log(json);
 	    	orderAddRow(json)
 	    });
 	  } else {
@@ -85,14 +85,14 @@
 	     
 	            
 	        var row = "<div class=\"col-md-3 themed-grid-col text-center\">"
-					    + "<a href=\"{{ url('details') }}/" + value.idloja + "\">"
+					    + "<a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">"
 						+	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"figura produto\" width=301px height=auto/></a>"
 					    + "<div>"
 					
-						+	"<h4 class=\"nav-link\"><a href=\"{{ url('details') }}/" + value.idloja + "\">" + value.produto.descricao + "</a></h4>"
+						+	"<h4 class=\"nav-link\"><a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">" + value.produto.descricao + "</a></h4>"
 					
 						+	"<h3>R$ " +  value.preco +  "</h3>"
-						+ "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.produto.id + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
+						+ "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
 					
 						+ "</div></div>";
 	   
