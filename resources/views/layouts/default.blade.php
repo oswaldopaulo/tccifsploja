@@ -24,6 +24,14 @@
         }
       }
     </style>
+    
+    
+    
+    <script src="{{ asset ('js/jquery-3.5.1.slim.min.js') }}" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset ('js/jquery.cookie.js') }}"></script>
+
+
 </head>
 <body>
 <header>
@@ -173,9 +181,7 @@
 </footer>
 
 
-<script src="{{ asset ('js/jquery-3.5.1.slim.min.js') }}" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset ('js/jquery.cookie.js') }}"></script>
+
 <script type="text/javascript">
 fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.token') !!}" ).then(function(response) {
 	  var contentType = response.headers.get("content-type");
@@ -275,7 +281,7 @@ function setsession(id){
 			$('#carrinhopreco').empty();
 			$('#carrinhopreco').append("R$ " + total);
 
-			//window.location.href = "carrinho.jsp";
+			window.location.href = "{{ url('carrinho') }}";
 			
 	    });
 	  } else {

@@ -26,6 +26,11 @@ class HomeController extends Controller
         return view('home');
     }
     
+    public function carrinho()
+    {
+        return view('carrinho');
+    }
+    
     public function details($id)
     {
         
