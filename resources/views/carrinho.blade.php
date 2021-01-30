@@ -40,8 +40,15 @@
 	     <div class="col-md-4">
 	    	 <label for="cep">Cep</label> 
 	     </div>
+	     
+	     
 	      <div class="col-md-8" style="text-align: right;">
-	    	 <div> <input type="text" name="cep" class="form-control" size="8" placeholder="Dig. o Cep"> <button class="btn btn-primary">Calcular Frete</button></div>
+	    	 <div class="input-group"> 
+    	    	 <input type="text" id="cep" name="cep" class="form-control" size="8" placeholder="Dig. o Cep"> 
+    	    	  <div class="input-group-append">
+    	    	  	<button class="btn btn-primary" onclick="getcep(cep.value)">Calcular Frete</button>
+    	    	  </div>
+	    	  </div>
 	     </div>
 	       <div class="col-md-12">
 	    	 Rua <span id="rua">teste </span>,<span id="">teste </span> 
@@ -138,6 +145,42 @@
 	    
 	}
   </script>
+  
+ <script type="text/javascript">
+ function getcep(cep){
+
+	 fetch("{{ Config::get('api.v1.micro') }}/frete/{!! Config::get('api.v1.token') !!}/" + cep).then(function(response) {
+		  var contentType = response.headers.get("content-type");
+		  if(contentType && contentType.indexOf("application/json") !== -1) {
+		    return response.json().then(function(json) {
+		      // process your JSON further
+		      
+		      
+		   		
+			
+		   		
+		   		
+		   		console.log(json);
+
+
+
+		   		//console.log($.cookie('produtos'));
+	  			//$('#carrinhoqtd').empty();
+				//$('#carrinhoqtd').append(t.length);
+				
+				
+
+				
+				
+		    });
+		  } else {
+		    console.log("Oops, we haven't got JSON!");
+		  }
+		});
+
+ }
+
+</script>
   
   
 @endsection
