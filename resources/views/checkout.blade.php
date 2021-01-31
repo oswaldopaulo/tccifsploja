@@ -4,11 +4,10 @@
   <div class="row mb-4" style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
     <h3><i class="fas fa-cart-plus fa-fw"></i> Meu Carrinho</h3>
    </div>
-   <form role="form" action="{{ url('checkout') }}" class="form" method="post">
-   {{ csrf_field() }}
+   
    <div class="row mb-4" style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
    
-	
+
 	<div class="col-md-8 detail-grid-col">
 		<div class="col-md-12">
 			<div class="row mb-4" style="border-bottom: 1px solid;" >
@@ -49,7 +48,7 @@
 	    	 <div class="input-group"> 
     	    	 <input type="text" id="cep" name="cep" class="form-control" size="8" placeholder="Digite o CEP"> 
     	    	  <div class="input-group-append">
-    	    	  	<button type="button" class="btn btn-primary" onclick="getcep(cep.value)">Calcular Frete</button>
+    	    	  	<button class="btn btn-primary" onclick="getcep(cep.value)">Calcular Frete</button>
     	    	  </div>
 	    	  </div>
 	     </div>
@@ -102,7 +101,7 @@
      </div>
      
 		 
-		    <button type="submit" class="btn btn-danger btn-lg" style="width: 80%; margin-left: 10%; margin-right: auto; "> <i class="fas fa-cart-plus fa-fw"></i> Continuar </button>
+		    <button type="button" class="btn btn-danger btn-lg" style="width: 80%; margin-left: 10%; margin-right: auto; "> <i class="fas fa-cart-plus fa-fw"></i> Continuar </button>
 		    <p style="margin-left: 10%; margin-right: 20px; margin-top: 20px;"><a href="index.jsp"> Continuar Comprando</a> </p>
 		        
 		    
@@ -112,7 +111,6 @@
 
 	  
   </div>
-  </form>
 
   <script type="text/javascript">
   	$.cookie.json = true;

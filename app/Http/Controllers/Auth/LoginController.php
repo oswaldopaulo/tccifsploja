@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     /*
@@ -35,5 +37,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    
+    protected function credentials()
+    {
+        $validator = Validator::make(Request::all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+            'token'=>'required|exists:empresas,token',
+        ]);
+        
+        $emp = DB::table('empresas')->where(['token'=>Request::input('token')])->first();
+        return [
+            'email' => Request::input('email'),
+            'password' => Request::input('password'),
+            'idempresa' =>$emp->id
+        ];
     }
 }

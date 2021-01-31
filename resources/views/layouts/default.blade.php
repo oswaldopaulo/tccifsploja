@@ -46,7 +46,7 @@
   
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Contatos </a>
@@ -55,10 +55,13 @@
 
     </ul>
          <form class="form-inline my-2 my-md-0">
-      <input id="search"class="form-control" type="text" placeholder="Search">
-       <div class="input-group-append">
+         	<div class="input-group"> 
+         
+                      <input id="search"class="form-control" type="text" placeholder="Search">
+                       <div class="input-group-append">
                         <button class="btn btn-primary"  onclick="pesquisar()"><i class="fas fa-search"></i></button>
                     </div>
+           </div>
     </form>
     <ul class="navbar-nav">
     
@@ -71,14 +74,8 @@
   
       <a class="dropdown-item" href="profile.jsp">Profile </a>
           <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-          <form id="logout-form" action="LoginServlet" method="POST" style="display: none;">
-
-
-
-                                          <input type="hidden" value="1" name="logout">
-
-
-
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
                                  </form>
   
   
@@ -90,7 +87,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user">Entrar</i> </a>
         <div class="dropdown-menu" aria-labelledby="dropdown03">
         
-     <a class="dropdown-item" href="login.jsp">Entrar / Registar </a>
+     <a class="dropdown-item" href="{{ route('login') }}">Entrar / Registar </a>
       
      
         
@@ -100,7 +97,7 @@
       </li>
     
      <li class="nav-item">
-      <a class="nav-link" href="carrinho.jsp"><span class="text-primary" id="carrinhoqtd"></span><i class="fas fa-cart-plus fa-fw"></i> Carrinho <span class="text-primary" id="carrinhopreco"></span></a>
+      <a class="nav-link" href="{{ url('carrinho') }}"><span class="text-primary" id="carrinhoqtd"></span><i class="fas fa-cart-plus fa-fw"></i> Carrinho <span class="text-primary" id="carrinhopreco"></span></a>
       </li>
       
   
@@ -171,6 +168,7 @@
    <div class="row mb-4">
        
       <div class="card-body">
+     
         <h6 class="card-title" id="footerEmpresa">Empresa</h6>
         <p class="card-text"><strong>CNPJ:</strong> <span id="footerCnpj"></span> <strong>Endereço:</strong> <span id="footerEndereco"></span>, <span id="footerNum"></span> text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="card-link">Card link</a>
@@ -183,6 +181,8 @@
 
 
 <script type="text/javascript">
+
+
 fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.token') !!}" ).then(function(response) {
 	  var contentType = response.headers.get("content-type");
 	  if(contentType && contentType.indexOf("application/json") !== -1) {
@@ -193,6 +193,8 @@ fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.tok
 	     
 	    	//p = json.Produtos;
 	    	// console.log(json);
+	    	if(document.getElementById("idempresa"))  idempresa.value = json[0].id;
+	    	if(document.getElementById("loginidempresa"))  idempresa.value = json[0].id;
 	    	
 	    	 $("#footerEmpresa").html(json[0].nome);
 	    	 $("#footerCnpj").html(json[0].cpf);

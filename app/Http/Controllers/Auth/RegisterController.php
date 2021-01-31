@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -48,11 +50,21 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'token'=>'required|exists:empresas,token',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            //'email' => 'required|string|email|max:255|unique:usuarios_site',
             'password' => 'required|string|min:6|confirmed',
+            
+            'email' =>  [
+                'required',
+                Rule::unique('usuarios_site')
+                ->where('idempresa', $data['idempresa'])
+            ]
+            
         ]);
     }
+    
+   
 
     /**
      * Create a new user instance after a valid registration.
@@ -61,11 +73,21 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
+    
+    
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        
+        $emp = DB::table('empresas')->where(['token'=>$data['token']])->first();
+        
+        if(isset($emp->id)){
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'idempresa'=>$emp->id,
+                'password' => bcrypt($data['password']),
+            ]);
+        } else {
+            
+        }
     }
 }
