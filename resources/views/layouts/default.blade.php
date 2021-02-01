@@ -252,7 +252,7 @@ function setsession(id){
 
 	   		if(t == null){
 	   			t=json;
-	   			total += parseFloat(json[0].preco);
+	   			total += parseFloat(json[0].preco*json[0].qtd);
 		   		
 	   		}	else{
 
@@ -267,7 +267,7 @@ function setsession(id){
 	   			}
 
 				if(test==false)	{
-					total += parseFloat(json[0].preco);
+					total += parseFloat(json[0].preco*json[0].qtd);
 					t.push(json[0]);
 				}
 	   		}

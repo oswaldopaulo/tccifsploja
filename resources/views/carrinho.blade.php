@@ -133,14 +133,14 @@
 	        var row = 	"<div class=\"row mb-4\" style=\"border-bottom: 1px solid;\" >"
 		     + "<div class=\"col-md-4\">"
 		     
-			+	"<input type=\"hidden\" id=\"idloja\" value=\"" +  value.idloja + "\">"
+			+	"<input type=\"hidden\" name=\"idloja[]\" value=\"" +  value.idloja + "\">"
 		    +	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"imagem do produto\" class=\"img-thumbnail\" style=\"width: 75px;height: autopx;  float: left; margin-right: 10px\"/>"
 		    	
 			+   "<h6>" + value.produto.descricao + "</h6>"
 		   // +	"<p>descricao</p>"
 		    + "</div>"
 		    +  "<div class=\"col-md-2\">"
-		    +	 "<input name=\"qtd\" type=\"number\" class=\"form-control\" value=\"" + value.qtd + "\" style=\"width: 50px\" />"
+		    +	 "<input name=\"qtd[]\" type=\"number\" class=\"form-control\" value=\"" + value.qtd + "\" style=\"width: 50px\" />"
 		    + "</div>"
 		    +   "<div class=\"col-md-2\">"
 		    +	"<a href=# onclick(remove_carrinho("+  value.produto.id +")) ><i class=\"far fa-trash-alt fa-2x\"></i></a>"
@@ -198,7 +198,7 @@
 	    $.each($data,function(index,value) {
 
 	    	if(value.resultado==1){
-    	    	 var row = "<p><input type=\"radio\" name=\"frete\" onchange=\"calcular("+ value.valor +")\" value=\"" + value.tipo + "\"> " + value.tipo.toUpperCase() + " " + value.valor_rs + "</p>";
+    	    	 var row = "<p> <input type=\"radio\" name=\"frete\" onchange=\"calcular("+ value.valor +")\" value=\"" + value.tipo + "|" +  value.valor + "\"> " + value.tipo.toUpperCase() + " " + value.valor_rs + "</p>";
                 
         		$('#frete').append(row);
 	    	} else {

@@ -1,14 +1,15 @@
 @extends('layouts.default')
 @section('content')
-
-  <div class="row mb-4" style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
-    <h3><i class="fas fa-cart-plus fa-fw"></i> Meu Carrinho</h3>
+ <form role="form" action="{{ url('transacao') }}" class="form" method="post" >
+   {{ csrf_field() }}
+  <div class="row mb-4" style="margin-left: 20px; margin-top: 50px; margin-right: 20px">
+    <h3><i class="fas fa-cart-plus fa-fw"></i> Finalizar Pedido </h3>
    </div>
    
-   <div class="row mb-4" style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
+   <div class="row mb-4" style="margin-left: 20px; margin-top: 50px; margin-right: 20px">
    
 
-	<div class="col-md-8 detail-grid-col">
+	<div class="col-md-6 detail-grid-col">
 		<div class="col-md-12">
 			<div class="row mb-4" style="border-bottom: 1px solid;" >
 			     <div class="col-md-4">
@@ -31,86 +32,66 @@
 			  
 	     </div>
 	</div>
-    <div class="col-md-4 detail-grid-col" style="background-color: Gainsboro;">
+	
+	<div class="col-md-6 detail-grid-col">
+	
+	<div class="card bg-light mb-3">
+      <div class="card-header"> <h5>Endereço de Entrega</h5></div>
+      <div class="card-body row col-md-12">
+      
+       <div class="col-md-4 detail-grid-col">
+            <div class="card bg-light mb-4">
+              <div class="card-header"><input type="radio" name="cep" id="cep" value="0" onchange="getcep(this.value)" checked> {{Auth::user()->cep}} </div>
+              <div class="card-body">
+              <p style="margin: 0" > {{ Auth::user()->name }} </p>
+               <p style="margin: 0" > {{ Auth::user()->rua }}, {{ Auth::user()->numero }}  </p>
+               <p style="margin: 0" > {{ Auth::user()->bairro }} </p>
+               <p style="margin: 0" > {{ Auth::user()->cidade }}/{{ Auth::user()->uf }}  </p>
+              
+       
+               
+              </div>
+            </div>
+        </div>
+          
+      </div>
+    </div>
     
     
+    <div class="card bg-light mb-3">
+      <div class="card-header"> <h5>Frete</h5></div>
+      <div class="card-body row col-md-12" id="frete">
+      
+     
+          
+      </div>
+    </div>
     
-    <h3>Endereço de Entrega</h3>
-    <div class="row mb-4" style="margin: 20px; border-bottom: 1px solid;" >
-    	
-    	
-	     <div class="col-md-2">
-	    	 <label for="cep">Cep</label> 
-	     </div>
-	     
-	     
-	      <div class="col-md-10" style="text-align: right;">
-	    	 <div class="input-group"> 
-    	    	 <input type="text" id="cep" name="cep" class="form-control" size="8" placeholder="Digite o CEP"> 
-    	    	  <div class="input-group-append">
-    	    	  	<button class="btn btn-primary" onclick="getcep(cep.value)">Calcular Frete</button>
-    	    	  </div>
-	    	  </div>
-	     </div>
-	     
-	      
-     </div>
+    <div class="card bg-light mb-3">
+      <div class="card-header"> <h5>Total</h5></div>
+      <div class="card-body row col-md-12" id="frete">
+      	<input type="hidden" id="total2" >
+     	<input type="text" id="total" name="total" readonly  style="border-width:0px;border:none;">
+          
+      </div>
+    </div>
     
-    <h3>Resumo do Pedido</h3>
-    <div class="row mb-4" style="margin: 20px; border-bottom: 1px solid;" >
-	     <div class="col-md-8">
-	    	 Subtotal
-	     </div>
-	      <div class="col-md-4" style="text-align: right;">
-	    	 <div id="valor"> R$ 999,99</div>
-	     </div>
-	       <div class="col-md-4">
-	    	 Frete
-	     </div>
-	      <div class="col-md-8" style="text-align: right;" id="frete">
-	    	 
-	    	
-	     </div>
-     </div>
-     
-     
-   
-    <div class="row mb-4" style="margin-left: 20px; margin-right: 20px; margin-top: 0px" >
-	     <div class="col-md-4">
-	    	 <h5>Total</h5>
-	     </div>
-	      <div class="col-md-8" style="text-align: right;">
-	    	 <h5> <span id="total"> R$ 999,99 </span></h5>
-	     </div>
-	      
-     </div>
-     
-     
-     <h3>Forma de Pagamento</h3>
-    <div class="row mb-4" style="margin: 20px; border-bottom: 1px solid;" >
-    	
-    	
-	     <div class="col-md-12">
-	     		<input type="radio" name="formapgto" value="1" checked>
-	    	 <label for="formapgto">Paypal</label> 
-	     </div>
-	     
-	     
-	     
-	      
-     </div>
+      <button type="submit" class="btn btn-danger btn-lg" style="width: 100%; "> <i class="fas fa-cart-plus fa-fw"></i> Pagar com paypal </button>
+		
+		        
+	
+	</div>
+	
+    
      
 		 
-		    <button type="button" class="btn btn-danger btn-lg" style="width: 80%; margin-left: 10%; margin-right: auto; "> <i class="fas fa-cart-plus fa-fw"></i> Continuar </button>
-		    <p style="margin-left: 10%; margin-right: 20px; margin-top: 20px;"><a href="index.jsp"> Continuar Comprando</a> </p>
-		        
+		  
 		    
 		 
 	  
 	  </div>
 
-	  
-  </div>
+	</form>  
 
   <script type="text/javascript">
   	$.cookie.json = true;
@@ -131,14 +112,14 @@
 	        var row = 	"<div class=\"row mb-4\" style=\"border-bottom: 1px solid;\" >"
 		     + "<div class=\"col-md-4\">"
 		     
-			+	"<input type=\"hidden\" id=\"idloja\" value=\"" +  value.idloja + "\">"
+			+	"<input type=\"hidden\" id=\"idloja\" name=\"idloja[]\" value=\"" +  value.idloja + "\">"
 		    +	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"imagem do produto\" class=\"img-thumbnail\" style=\"width: 75px;height: autopx;  float: left; margin-right: 10px\"/>"
 		    	
 			+   "<h6>" + value.produto.descricao + "</h6>"
 		   // +	"<p>descricao</p>"
 		    + "</div>"
 		    +  "<div class=\"col-md-2\">"
-		    +	 "<input name=\"qtd\" type=\"number\" class=\"form-control\" value=\"" + value.qtd + "\" style=\"width: 50px\" />"
+		    +	 "<input name=\"qtd[]\" type=\"number\" class=\"form-control\" value=\"" + value.qtd + "\" style=\"width: 50px\" />"
 		    + "</div>"
 		    +   "<div class=\"col-md-2\">"
 		    +	"<a href=# onclick(remove_carrinho("+  value.produto.id +")) ><i class=\"far fa-trash-alt fa-2x\"></i></a>"
@@ -152,11 +133,8 @@
   	          
 	    });
 	    
-	    $('#valor').empty();
-		$('#valor').append(("R$ " + valor.toFixed(2)).replace(".",","));
-		
-		$('#total').empty();
-		$('#total').append(("R$ " + valor.toFixed(2)).replace(".",","));
+	    total2.value = valor.toFixed(2);
+		total.value = valor.toFixed(2);
 	
 	    
 	}
@@ -195,8 +173,13 @@
 	function orderAddRow($data) {
 	    $.each($data,function(index,value) {
 
+		    first = true;
+
 	    	if(value.resultado==1){
-    	    	 var row = "<p><input type=\"radio\" name=\"frete\" onchange=\"calcular("+ value.valor +")\" value=\"" + value.tipo + "\"> " + value.tipo.toUpperCase() + " " + value.valor_rs + "</p>";
+
+		    	first?r="required":r="";
+    	    	 var row = "<p><input type=\"radio\" name=\"frete\" class=\"form-check form-check-inline\" " + r +" onchange=\"calcular("+ value.valor +")\" value=\"" + value.tipo + "|" +  value.valor + "\"> " + value.tipo.toUpperCase() + " " + value.valor_rs + "</p>";
+    	    	 first=false;
                 
         		$('#frete').append(row);
 	    	} else {
@@ -213,13 +196,14 @@
 
 
  	function calcular(frete){
- 		$.cookie.json = true;
-		var valor = $.cookie('total');;
-		valor += frete;
- 		$('#total').empty();
-		$('#total').append(("R$ " + valor.toFixed(2)).replace(".",","));
+ 		
+		var valor = parseFloat(total2.value);
+		valor += parseFloat(frete);
+ 		total.value = valor.toFixed(2);
  	 	
  	}
+
+ 	getcep({{ Auth::user()->cep }});
 </script>
   
   
