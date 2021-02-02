@@ -44,7 +44,7 @@
             			  </div>
             	     </div>
             	     
-            	     <div class="col-md-12" id="produtos">
+            	     <div class="col-md-12" id="pedidos">
             		
             			  
             	     </div>
@@ -175,117 +175,70 @@
 	</form>  
 
   <script type="text/javascript">
-  	$.cookie.json = true;
-	t = $.cookie('produtos');
 
-	orderAddRow(t)
+
+  fetch("{{ Config::get('api.v1.url') }}/transacoes?token={!! Config::get('api.v1.token') !!}&iduser=" + {{ Auth::user()->id }}   ).then(function(response) {
+	  var contentType = response.headers.get("content-type");
+	  if(contentType && contentType.indexOf("application/json") !== -1) {
+	    return response.json().then(function(json) {
+	      // process your JSON further
+	    		
+	   		//console.log(json);
+			orderAddRowPedidos(json)
+			
+			
+	    });
+	  } else {
+	    console.log("nada");
+	  }
+	});
 	
 
 	
-	function orderAddRow($data) {
+	function orderAddRowPedidos($data) {
 		var valor = 0;
 	    $.each($data,function(index,value) {
 	    	
-	    	valor += value.preco * value.qtd;
+	  
 	        
 	            
 	            
 	        var row = 	"<div class=\"row mb-4\" style=\"border-bottom: 1px solid;\" >"
 		     + "<div class=\"col-md-4\">"
-		     
-			+	"<input type=\"hidden\" id=\"idloja\" name=\"idloja[]\" value=\"" +  value.idloja + "\">"
-		    +	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"imagem do produto\" class=\"img-thumbnail\" style=\"width: 75px;height: autopx;  float: left; margin-right: 10px\"/>"
-		    	
-			+   "<h6>" + value.produto.descricao + "</h6>"
+		     	
+			+   "<h6><a href=\"#\" onclick=\"openwindows('{{ url('itens') }}/"+ value.id +"')\"> <i class=\"fa fa-eye\" aria-hidden=\"true\"></i>" + value.id+ "</a></h6>"
 		   // +	"<p>descricao</p>"
 		    + "</div>"
 		    +  "<div class=\"col-md-2\">"
-		    +	 "<input name=\"qtd[]\" type=\"number\" class=\"form-control\" value=\"" + value.qtd + "\" style=\"width: 50px\" />"
+		    +	value.data_trans
 		    + "</div>"
 		    +   "<div class=\"col-md-2\">"
-		    +	"<a href=# onclick(remove_carrinho("+  value.produto.id +")) ><i class=\"far fa-trash-alt fa-2x\"></i></a>"
+		    +	parseFloat(value.total + value.valorfrete).toFixed(2)
 		    + "</div>"
 		    +  "<div class=\"col-md-4\">"
-		    +	 "R$ " + value.preco * value.qtd + ""
+		    +	 value.status
 		    + "</div>"
 		  +   "</div>";
   	            
-	        		$('#produtos').append(row);
+	       $('#pedidos').append(row);
   	          
 	    });
 	    
-	    total2.value = valor.toFixed(2);
-		total.value = valor.toFixed(2);
+
 	
 	    
 	}
+
+	function openwindows(url){
+
+		
+
+		 newwindow=window.open(url,name,'width=560,height=340,toolbar=0,menubar=0,location=0');  
+		   if (window.focus) {newwindow.focus()}
+	}
   </script>
   
- <script type="text/javascript">
- function getcep(cep){
 
-		$('#frete').empty();
-		
-		if(cep==''){
-			$('#frete').append("CEP em branco");
-			return false;
-		
-		}
-	 fetch("{{ Config::get('api.v1.micro') }}/frete/{!! Config::get('api.v1.token') !!}/" + cep   ).then(function(response) {
-		  var contentType = response.headers.get("content-type");
-		  if(contentType && contentType.indexOf("application/json") !== -1) {
-		    return response.json().then(function(json) {
-		      // process your JSON further
-		    		
-		   		//console.log(json);
-				orderAddRow(json)
-				
-				
-		    });
-		  } else {
-		    console.log("nada");
-		  }
-		});
-
-		
-
- }
-
-	function orderAddRow($data) {
-	    $.each($data,function(index,value) {
-
-		    first = true;
-
-	    	if(value.resultado==1){
-
-		    	first?r="required":r="";
-    	    	 var row = "<p><input type=\"radio\" name=\"frete\" class=\"form-check form-check-inline\" " + r +" onchange=\"calcular("+ value.valor +")\" value=\"" + value.tipo + "|" +  value.valor + "\"> " + value.tipo.toUpperCase() + " " + value.valor_rs + "</p>";
-    	    	 first=false;
-                
-        		$('#frete').append(row);
-	    	} else {
-
-	    		$('#frete').append(value.resultado_txt);
-	    		return false;
-
-	    	}
-	
-	       // console.log(value.tipo);
-	          
-	    });
-	}
-
-
- 	function calcular(frete){
- 		
-		var valor = parseFloat(total2.value);
-		valor += parseFloat(frete);
- 		total.value = valor.toFixed(2);
- 	 	
- 	}
-
- 	getcep({{ Auth::user()->cep }});
-</script>
   
   
 @endsection

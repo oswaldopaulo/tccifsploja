@@ -95,6 +95,25 @@
 						+ "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
 					
 						+ "</div></div>";
+
+					var fpreco = parseFloat(value.preco);
+				
+					      
+			var row = "<div class=\"col-md-2 themed-grid-col text-left\">"	
+    						 + "<div class=\"card\">"
+
+    						 +"<a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">"
+    						 +	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"figura produto\" width=100% height=auto/></a>"
+      						
+    						 + "<div class=\"card-body\">"
+    						 +   "<h5 class=\"card-title\"><a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">" + value.produto.descricao + "</a></h5>"
+    						 
+    					
+    						 +  "<h2> R$ " +  (fpreco.toFixed(2)).replace(".",",") +  "</h2>"
+    						 +   "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
+    						 + "</div>"
+    						+ "</div>"
+						+ "</div>";
 	   
   	            
 	        		$('#produtos').append(row);

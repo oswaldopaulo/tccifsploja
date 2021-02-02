@@ -41,6 +41,12 @@ class AuthController extends Controller
         return view('profile');
     }
     
+    public function itens($id){
+        
+        $t = DB::table('transacoes_itens')->where(['id_trans'=>$id])->get();
+        
+        return view('itens')->with(['t'=>$t]);
+    }
     
     public function transac()
     {
@@ -105,7 +111,7 @@ class AuthController extends Controller
                 'formpgto'=>Request::input('formpgto'),
                 'frete'=>$frete,
                 'valorfrete'=>$valorfrete,
-                'status'=>Request::input('A')
+                'status'=>'A'
             ]);
             
             
@@ -155,7 +161,7 @@ class AuthController extends Controller
                     'price_unit'=>round( $preco,2)
                 ]);
                 
-                $total += round( $preco,2);
+                $total += round( ($preco*$qtd[$key]),2);
                 
             }
             
