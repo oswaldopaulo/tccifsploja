@@ -35,13 +35,15 @@
 	
 	<div class="col-md-6 detail-grid-col">
 	
+	{{ session('warning') }}
+	
 	<div class="card bg-light mb-3">
       <div class="card-header"> <h5>Endereço de Entrega</h5></div>
       <div class="card-body row col-md-12">
       
        <div class="col-md-4 detail-grid-col">
             <div class="card bg-light mb-4">
-              <div class="card-header"><input type="radio" name="cep" id="cep" value="0" onchange="getcep(this.value)" checked> {{Auth::user()->cep}} </div>
+              <div class="card-header"><input type="radio" name="cep" id="cep" value="1" onchange="getcep(this.value)" checked> {{Auth::user()->cep}} </div>
               <div class="card-body">
               <p style="margin: 0" > {{ Auth::user()->name }} </p>
                <p style="margin: 0" > {{ Auth::user()->rua }}, {{ Auth::user()->numero }}  </p>

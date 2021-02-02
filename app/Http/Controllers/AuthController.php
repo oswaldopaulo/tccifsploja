@@ -35,16 +35,23 @@ class AuthController extends Controller
     }
     
     
+    public function profile()
+    {
+        
+        return view('profile');
+    }
+    
+    
     public function transac()
     {
         
         
         //$produtos  = json_decode(Cookie::get('produtos'),true);
         
-        return Request::all();
+        //return Request::all();
         
         $user = DB::table('usuarios_site')
-        ->select('id','name','username','email','tipo_contato','telefone','tipo_endereco','cep','rua','numero','bairro','cidade','uf','cpf','ativo')
+        ->select('id','name','idempresa','email','tipo_contato','telefone','tipo_endereco','cep','rua','numero','bairro','cidade','uf','cpf','ativo')
         ->where(['id'=>Auth::user()->id])
         ->get();
         
@@ -64,11 +71,11 @@ class AuthController extends Controller
         
         
         
-        
+        /*
         if(empty( Request::input('formpgto'))){
             return redirect('/checkout')->with('warning', 'Escolha a forma de pagamento');
         }
-        
+        */
         
         if(empty( Request::input('cep'))){
             return redirect('/checkout')->with('warning', 'Sem endereço de entrega');
@@ -85,7 +92,7 @@ class AuthController extends Controller
         }
         
       
-        list ($frete, $valorfrete) = split ('|', Request::input('frete'));
+        list ($frete, $valorfrete) = explode('|', Request::input('frete'));
         DB::beginTransaction();
         
         try {
@@ -94,8 +101,7 @@ class AuthController extends Controller
                
                 
                 'idempresa'=> $user[0]->idempresa,
-                'id_contact'=> $user[0]->id,
-                'name'=> $user[0]->name,
+                'iduser'=> $user[0]->id,
                 'formpgto'=>Request::input('formpgto'),
                 'frete'=>$frete,
                 'valorfrete'=>$valorfrete,
@@ -123,28 +129,29 @@ class AuthController extends Controller
             
            
             $total = 0;
+            $qtd = Request::input("qtd");
             foreach(Request::input('idloja') as $key  => $idloja){
                 
                 $loja = Db::table('loja')
                     ->where(['idloja'=>$idloja])
                     ->first();
                 
-                $produto = DB::table('produto')
+                $produto = DB::table('produtos')
                     ->where(['id'=>$loja->idproduto])
                     ->first();
                 
                 
-                $preco =  $loja->preco - ( $loja->preco * ($ $loja->desconto/100));
+                $preco =  $loja->preco - ( $loja->preco * ($loja->desconto/100));
                 
                 
                 
                 //return var_dump($r99);
                 DB::table('transacoes_itens')->insert([
                     'id_trans'=>$id,
-                    'id_produto'=> $produto->idproduto,
+                    'id_produto'=> $produto->id,
                     'description'=> $produto->descricao,
                     
-                    'quantity'=>Request::input("qtd[" . $key . "]"),
+                    'quantity'=>$qtd[$key],
                     'price_unit'=>round( $preco,2)
                 ]);
                 
@@ -153,7 +160,7 @@ class AuthController extends Controller
             }
             
             DB::table('transacoes')
-            ->where('id_trans',$id)
+            ->where('id',$id)
             ->update([
                 'total'=>$total
             ]);
@@ -169,6 +176,7 @@ class AuthController extends Controller
         setcookie("produtos", "", time()-3600);
         setcookie("qtd", "", time()-3600);
         setcookie("valor", "", time()-3600);
+        setcookie("total", "", time()-3600);
         
        
         return redirect()->away(Config::get('api.v1.micro') . '/paywithpaypal/' . $id);
