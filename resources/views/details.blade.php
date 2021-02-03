@@ -33,8 +33,8 @@
     
     <h1 id="preco"></h1>
     <p> 10x de <span id="cartao"></span> no cartão</p>
-    
-    <button type="button" id="bt-carrinho" class="btn btn-danger btn-lg"> <i class="fas fa-cart-plus fa-fw"></i> Comprar </button>    
+    <input type="hidden" id="idloja">
+    <button type="button" id="bt-carrinho"  class="btn btn-danger btn-lg"> <i class="fas fa-cart-plus fa-fw"></i> <span id="botao">Comprar</span></button>    
     
     </div>
 	  
@@ -58,16 +58,25 @@ fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token'
 	      
 	     
 	    	p = json
-	    	 console.log(json);
+	    	// console.log(json);
 	    	 $("#id").html(p[0].produto.id);
 	    	 $("#descricao").html(p[0].produto.descricao);
 	    	 $("#preco").html("R$ " + (p[0].preco.toFixed(2)).replace(".",","));
 	    	 $("#ficha").html(p[0].produto.ficha);
 	    	 $("#cartao").html(p[0].preco/10);
-	    	 
+		
 	    	 //$("#capa").src("ImagensServlet?id=" + p[0].ID);
 	    	 document.getElementById("capa").src= "{{ Config::get('api.v1.pics') }}/getbyitem/" + p[0].produto.id;
-	    	 document.getElementById("bt-carrinho").onclick= function() { setsession( p[0].produto.id); }
+
+	    	 if(p[0].demanda > 0 ){
+	    		 document.getElementById("bt-carrinho").onclick= function() { setsession( p[0].idloja); }
+					
+ 			} else {
+ 				document.getElementById("bt-carrinho").className="btn btn-secondary";
+ 				 $("#botao").html("Esgotado");
+
+ 			}
+	    	 
 
 	    	 fetch("{{ Config::get('api.v1.url') }}/pics?produto=" + p[0].produto.id).then(function(response) {
 	    		
@@ -75,7 +84,7 @@ fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token'
 	    		  if(contentType && contentType.indexOf("application/json") !== -1) {
 	    		    return response.json().then(function(json) {
 	    		      // process your JSON further
-	    		    	console.log(json);
+	    		    	//console.log(json);
 	    		    	orderAddRow(json)
 	    		    });
 	    		  } else {

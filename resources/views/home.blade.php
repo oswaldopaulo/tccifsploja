@@ -83,18 +83,12 @@
 	function orderAddRow($data) {
 	    $.each($data,function(index,value) {
 	     
-	            
-	        var row = "<div class=\"col-md-3 themed-grid-col text-center\">"
-					    + "<a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">"
-						+	"<img src=\"{{ Config::get('api.v1.pics') }}/getbyitem/" +  value.produto.id + "\" alt=\"figura produto\" width=301px height=auto/></a>"
-					    + "<div>"
-					
-						+	"<h4 class=\"nav-link\"><a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">" + value.produto.descricao + "</a></h4>"
-					
-						+	"<h3>R$ " +  value.preco +  "</h3>"
-						+ "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
-					
-						+ "</div></div>";
+	    			if(value.demanda > 0 ){
+						btn = "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>";
+	    			} else {
+	    				btn = "<button type=\"button\" id=\"bt-carrinho\"  class=\"btn btn-secondary\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Esgotado </button>";
+
+	    			}
 
 					var fpreco = parseFloat(value.preco);
 				
@@ -110,7 +104,7 @@
     						 
     					
     						 +  "<h2> R$ " +  (fpreco.toFixed(2)).replace(".",",") +  "</h2>"
-    						 +   "<button type=\"button\" id=\"bt-carrinho\" onclick=\"setsession(" +  value.idloja + ")\" class=\"btn btn-danger\"> <i class=\"fas fa-cart-plus fa-fw\"></i> Comprar </button>"
+    						 +   btn
     						 + "</div>"
     						+ "</div>"
 						+ "</div>";

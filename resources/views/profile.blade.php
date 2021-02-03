@@ -199,7 +199,10 @@
 		var valor = 0;
 	    $.each($data,function(index,value) {
 	    	
-	  
+	  		if(value.status=="A"){
+
+	  			value.status = "<a href=\"{!! Config::get('api.v1.micro') !!}/paywithpaypal/" + value.id + "\">A</a>";
+	  		}
 	        
 	            
 	            

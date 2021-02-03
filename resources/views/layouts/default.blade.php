@@ -266,7 +266,7 @@ function setsession(id){
 			
 			$('#carrinhopreco').empty();
 			$('#carrinhopreco').append("R$ " + $.cookie('total')?$.cookie('total'):0);
-			 return;
+			 return false;
 	  }
 	
 	fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token') !!}&idloja=" + id).then(function(response) {
