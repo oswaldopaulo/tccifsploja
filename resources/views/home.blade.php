@@ -51,16 +51,18 @@
   <!-- Aqui termina o banner carrocel -->
   
    <!--  Produtos come�a aqui -->
-   <div class="row mb-4 produto_marging" id="produtos">
-   
-		<!-- loop -->   
-	    
-	  
-	  <!-- fim do loop -->
-	  
-	  
-
-	  
+   <div class="container">
+       <div class="row mb-4 produto_marging" id="produtos">
+       
+    		<!-- loop -->   
+    	    
+    	  
+    	  <!-- fim do loop -->
+    	  
+    	  
+    
+    	  
+      </div>
   </div>
   <!-- Produtos termina aqui -->
   <script type="text/javascript">
@@ -93,7 +95,7 @@
 					var fpreco = parseFloat(value.preco);
 				
 					      
-			var row = "<div class=\"col-md-2 themed-grid-col text-left\">"	
+			var row = "<div class=\"col-md-3 themed-grid-col text-left\">"	
     						 + "<div class=\"card\">"
 
     						 +"<a href=\"{{ url('details') }}/" + value.idloja + "?produto="+  value.produto.id + "\">"

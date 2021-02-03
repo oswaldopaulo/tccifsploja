@@ -1,6 +1,8 @@
 @extends('layouts.default')
 @section('content')
-  <div class="row mb-4" style="margin-left: 100px; margin-top: 50px; margin-right: 100px">
+
+<div class="container">
+  <div class="row mb-4" style="margin-top: 30px">
     <h3><i class="fas fa-user fa-fw"></i>Autenticar</h3>
   
  
@@ -16,7 +18,7 @@
 	</div>
    
    
-   <div class="row mb-4" style="margin-left: 20px; margin-top: 50px; margin-right: 20px">
+   <div class="row mb-4">
    
 
 	<div class="col-md-5 detail-grid-col" style="background-color: Gainsboro; margin: 10px">
@@ -131,11 +133,68 @@
                     
             	</div>
             	
+            	<div class="form-group row">
+                            <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
+                            <div class="col-sm-10">
+                              <input id="telefone" type="text" class="form-control" name="telefone" value="{{ old('telefone') }}" required>
+        
+                            </div>
+             		 </div>
+            	
 				
-             	
-                 
-             
-             	
+             	 <div class="form-group row">
+             	  		<label for="cep" class="col-sm-2 col-form-label">Cep</label>
+                        <div class="col-sm-10">
+        			     	  <div class="input-group"> 
+                    	    	 <input type="text" id="cep" name="cep"  value="{{ old('cep') }}"  onchange="getcep(this.value)" class="form-control" size="8" placeholder="Digite o CEP"> 
+                    	    	  <div class="input-group-append">
+                    	    	  	<button type="button" class="btn btn-primary" onclick="getcep(cep.value)">Buscar</button>
+                    	    	  </div>
+                	    	  	</div>
+                    	</div>
+             	    </div>
+                 	
+                 	
+                 	 <div class="form-group row">
+                            <label for="rua" class="col-sm-2 col-form-label">Rua</label>
+                            <div class="col-sm-10">
+                              <input id="rua" type="text" class="form-control" name="rua" value="{{ old('rua') }}" required readonly>
+        
+                            </div>
+             		 </div>
+             		 
+             		 	 <div class="form-group row">
+                            <label for="numero" class="col-sm-2 col-form-label">Numero</label>
+                            <div class="col-sm-10">
+                              <input id="numero" type="text" class="form-control" name="numero" value="{{ old('numero') }}"  required>
+        
+                            </div>
+             		 </div>
+             		 
+             		 <div class="form-group row">
+                            <label for="rua" class="col-sm-2 col-form-label">Bairro</label>
+                            <div class="col-sm-10">
+                              <input id="bairro" type="text" class="form-control" name="bairro" value="{{ old('bairro') }}" required readonly>
+        
+                            </div>
+             		 </div>
+             		 
+             		 
+             		  <div class="form-group row">
+                            <label for="cidade" class="col-sm-2 col-form-label">Cidade</label>
+                            <div class="col-sm-10">
+                              <input id="cidade" type="text" class="form-control" name="cidade" value="{{ old('cidade') }}" required readonly>
+        
+                            </div>
+             		 </div>
+             		 
+             		 <div class="form-group row">
+                            <label for="uf" class="col-sm-2 col-form-label">UF</label>
+                            <div class="col-sm-10">
+                              <input id="uf" type="text" class="form-control" name="uf" value="{{ old('uf') }}" required readonly>
+        
+                            </div>
+             		 </div>
         
                
 					
@@ -154,7 +213,56 @@
 
 	  
   </div>
+</div>
+<script type="text/javascript">
+ function getcep(cep){
+
+		$('#frete').empty();
+		
+		if(cep==''){
+			$('#frete').append("CEP em branco");
+			return false;
+		
+		}
+	 fetch("{{ Config::get('api.v1.micro') }}/cep/{!! Config::get('api.v1.token') !!}/" + cep   ).then(function(response) {
+		  var contentType = response.headers.get("content-type");
+		  if(contentType && contentType.indexOf("application/json") !== -1) {
+		    return response.json().then(function(json) {
+		      // process your JSON further
+		    		
+		   		console.log(json.cep);
+				//orderAddRow(json)
 
 
+				if(json.cep){
+
+					rua.value = json.logradouro
+					bairro.value = json.bairro;
+					cidade.value = json.localidade;
+					uf.value= json.uf;
+
+					numero.focus();
+
+				}
+
+
+			
+				
+				
+		    });
+		  } else {
+		    console.log("nada");
+		  }
+		});
+
+		
+
+ }
+
+
+
+
+
+</script>
   
    @endsection 

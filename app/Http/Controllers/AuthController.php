@@ -5,6 +5,7 @@ use Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UsuariosRequest;
 
 class AuthController extends Controller
 {
@@ -187,5 +188,42 @@ class AuthController extends Controller
        
         return redirect()->away(Config::get('api.v1.micro') . '/paywithpaypal/' . $id);
        
+    }
+    
+    
+    public function updateprofile(UsuariosRequest $r)
+    
+    
+    {
+        DB::table('usuarios_site')
+        ->where('id',Auth::user()->id)
+        ->update([
+            'name'=> Request::input('name'),
+            'idempresa'=> Request::input('idempresa'),
+            'tipo_contato'=> 'M',
+            'telefone'=> Request::input('telefone'),
+            'cep'=> str_replace(array('.','/','-'),'',Request::input('cep')),
+            'rua'=> Request::input('rua'),
+            'numero'=> Request::input('numero'),
+            'bairro'=> Request::input('bairro'),
+            'cidade'=> Request::input('cidade'),
+            'uf'=> Request::input('uf')
+            
+        ]);
+        
+        
+        if(Request::input('password')){
+            DB::table('usuarios')
+            ->where('id',Request::input('id'))
+            ->update([
+                
+                'password'=> bcrypt(Request::input('password')),
+                
+            ]);
+        }
+        
+        
+        return redirect()->action('AuthController@profile')->with(['status'=>'Atualizado com sucesso']);
+        
     }
 }

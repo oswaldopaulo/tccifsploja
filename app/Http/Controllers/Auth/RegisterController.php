@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
+
+
 class RegisterController extends Controller
 {
     /*
@@ -54,6 +56,14 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             //'email' => 'required|string|email|max:255|unique:usuarios_site',
             'password' => 'required|string|min:6|confirmed',
+            'rua' => 'required|string|max:100',
+            'bairro'=>  'required|string|max:50',
+            'cidade'=> 'required|string|max:50',
+            'uf'=> 'required|string|max:2',
+            'numero'=> 'required|max:100',
+            'cep'=> 'required|max:10',
+            'telefone'=> 'required|max:15',
+            
             
             'email' =>  [
                 'required',
@@ -85,9 +95,19 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'idempresa'=>$emp->id,
                 'password' => bcrypt($data['password']),
+                'rua' => $data['rua'],
+                'bairro'=>  $data['bairro'],
+                'cidade'=> $data['cidade'],
+                'uf'=> $data['uf'],
+                'cep'=> $data['cep'],
+                'numero'=> $data['numero'],
+                'telefone'=> $data['telefone'],
             ]);
         } else {
             
         }
     }
+    
+    
+  
 }

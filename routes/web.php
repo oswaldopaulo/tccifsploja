@@ -23,7 +23,7 @@ Route::any('checkout', 'AuthController@checkout');
 Route::any('transacao', 'AuthController@transac');
 Route::get('profile', 'AuthController@profile');
 Route::get('compras', 'AuthController@profile');
-Route::post('profile', 'AuthController@Usuarioupdate');
+Route::post('profile', 'AuthController@updateprofile');
 
 Route::any('itens/{id}', 'AuthController@itens')->where('id','[0-9]+');;
 

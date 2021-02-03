@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+
+<div class="container">
    <div class="row mb-4 header-generic">
     <h3>Detalhes do Produto</h3>
    </div>
@@ -42,7 +44,7 @@
 
 	  
   </div>
-  <!-- Produtos termina aqui -->
+</div>
   
   <script type="text/javascript">
   
