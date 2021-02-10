@@ -63,7 +63,7 @@ fetch("{{ Config::get('api.v1.url') }}/loja?token={!! Config::get('api.v1.token'
 	    	// console.log(json);
 	    	 $("#id").html(p[0].produto.id);
 	    	 $("#descricao").html(p[0].produto.descricao);
-	    	 $("#preco").html("R$ " + (p[0].preco.toFixed(2)).replace(".",","));
+	    	 $("#preco").html("R$ " + (p[0].preco).replace(".",","));
 	    	 $("#ficha").html(p[0].produto.ficha);
 	    	 $("#cartao").html(p[0].preco/10);
 		

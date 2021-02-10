@@ -147,13 +147,13 @@ fetch("{{ Config::get('api.v1.url') }}/empresa?token={!! Config::get('api.v1.tok
 	    	if(document.getElementById("idempresa"))  idempresa.value = json[0].id;
 	    	if(document.getElementById("loginidempresa"))  idempresa.value = json[0].id;
 	    	
-	    	 $("#footerEmpresa").html(json[0].nome);
-	    	 $("#footerCnpj").html(json[0].cpf);
-	    	 $("#footerEndereco").html(json[0].des_end);
-	    	 $("#footerNum").html(json[0].num_end);
-	    	 $("#footerBairro").html(json[0].bairro);
-	    	 $("#footerCidade").html(json[0].des_cidade);
-	    	 $("#footerUf").html(json[0].des_uf);
+	    	 $("#footerEmpresa").html(json.nome);
+	    	 $("#footerCnpj").html(json.cpf);
+	    	 $("#footerEndereco").html(json.des_end);
+	    	 $("#footerNum").html(json.num_end);
+	    	 $("#footerBairro").html(json.bairro);
+	    	 $("#footerCidade").html(json.des_cidade);
+	    	 $("#footerUf").html(json.des_uf);
 
 	    		
 	    
